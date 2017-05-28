@@ -7,8 +7,8 @@
 
 #include "Controller.h"
 #include "global.h"
-#define LEFT_TURN_OFFSET 120 // calibrated on 05/19
-#define RIGHT_TURN_OFFSET 130 // calibrated on 05/19
+#define LEFT_TURN_OFFSET 0 // calibrated on 05/19
+#define RIGHT_TURN_OFFSET 0 // calibrated on 05/19
 
 
 int left_cnt, right_cnt;
@@ -37,15 +37,15 @@ void Driver_turn_left(int distance, int angle, int speed){
 
 	// Go straight untill the turn position if distance is bigger than 1 tile
 	if (distance > 90){
-		Controller_run((distance-90)*L_100MM2COUNT_RATIO, (distance-90)*R_100MM2COUNT_RATIO, speed, speed);
+		Controller_run((distance-90)*L_100MM2COUNT_RATIO/E_2, (distance-90)*R_100MM2COUNT_RATIO/E_2, speed, speed);
 		radius = 90;
 	} else {
 		radius = distance;
 	}
 
 	// Calculate left distance and right distance in counts
-	left_cnt = (radius*2 - MOUSE_WIDTH)*M_PI/E_4*L_100MM2COUNT_RATIO*angle/360 + LEFT_TURN_OFFSET; // E_4+E_2 = E_6
-	right_cnt = (radius*2 + MOUSE_WIDTH)*M_PI/E_4*R_100MM2COUNT_RATIO*angle/360 + LEFT_TURN_OFFSET; // E_4+E_2 = E_6
+	left_cnt = (radius*2 - MOUSE_WIDTH)*M_PI/E_4*L_100MM2COUNT_RATIO/E_2*angle/360 + LEFT_TURN_OFFSET; // E_4+E_2 = E_6
+	right_cnt = (radius*2 + MOUSE_WIDTH)*M_PI/E_4*R_100MM2COUNT_RATIO/E_2*angle/360 + LEFT_TURN_OFFSET; // E_4+E_2 = E_6
 
 	// Make sure that left and right distance (coutns)is always POSITIVE
 	if (left_cnt < 0) left_cnt = -left_cnt;
@@ -84,7 +84,7 @@ void Driver_turn_right(int distance, int angle, int speed) {
 
 	// Go straight untill the turn position if distance is bigger than 1 tile
 	if (distance > 90){
-		Controller_run((distance-90)*L_100MM2COUNT_RATIO, (distance-90)*R_100MM2COUNT_RATIO, speed, speed);
+		Controller_run((distance-90)*L_100MM2COUNT_RATIO/E_2, (distance-90)*R_100MM2COUNT_RATIO/E_2, speed, speed);
 		radius = 90;
 	} else {
 		radius = distance;
@@ -92,8 +92,8 @@ void Driver_turn_right(int distance, int angle, int speed) {
 
 
 
-	left_cnt = (radius*2 + MOUSE_WIDTH)*M_PI/E_4*L_100MM2COUNT_RATIO*angle/360 + RIGHT_TURN_OFFSET; // E_4+E_2 = E_6
-	right_cnt = (radius*2 - MOUSE_WIDTH)*M_PI/E_4*R_100MM2COUNT_RATIO*angle/360 + RIGHT_TURN_OFFSET; // E_4+E_2 = E_6
+	left_cnt = (radius*2 + MOUSE_WIDTH)*M_PI/E_4*L_100MM2COUNT_RATIO/E_2*angle/360 + RIGHT_TURN_OFFSET; // E_4+E_2 = E_6
+	right_cnt = (radius*2 - MOUSE_WIDTH)*M_PI/E_4*R_100MM2COUNT_RATIO/E_2*angle/360 + RIGHT_TURN_OFFSET; // E_4+E_2 = E_6
 
 	// Make sure that left and right distance (coutns)is always POSITIVE
 	if (left_cnt < 0) left_cnt = -left_cnt;
@@ -121,7 +121,7 @@ void Driver_go_straight(int distance, int speed) {
 		return;
 	}
 
-	Controller_run(distance*L_100MM2COUNT_RATIO, distance*R_100MM2COUNT_RATIO, speed, speed);
+	Controller_run(distance*L_100MM2COUNT_RATIO/E_2, distance*R_100MM2COUNT_RATIO/E_2, speed, speed);
 }
 
 int Driver_checkwalls(){

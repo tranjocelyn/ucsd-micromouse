@@ -50,18 +50,19 @@ typedef int Cell_label;
 /*
  * Using the new mice
  */
+/*
 #define L_100MM2COUNT_RATIO 88  // calibrated on 05/19
 #define R_100MM2COUNT_RATIO 88  //calibrated on 05/19
 #define MOUSE_WIDTH 68	// calibrated on 05/19
-
-
-
-/*
- * These setting are for the basic mouse board
- * #define L_100MM2COUNT_RATIO 1150  // 100 millimeters = 1110 count
- * #define R_100MM2COUNT_RATIO 1150  // 100 millimeters = 1110 count
- * #define MOUSE_WIDTH 83	// 65mm from left wheels to right wheels
  */
+
+
+
+/* These setting are for the basic mouse board */
+#define L_100MM2COUNT_RATIO 1170  // 100 millimeters = 1170 count
+#define R_100MM2COUNT_RATIO 1170  // 100 millimeters = 1170 count
+#define MOUSE_WIDTH 83	// 65mm from left wheels to right wheels
+
 /*
  * Controller Define
  */
@@ -87,7 +88,7 @@ typedef int Cell_label;
 #define SENSOR_NEGATIVE_RATIO 2
 #define MAX_SENSOR_ERR 2
 #define FRONT_WALL_CORRECTION_SPEED_LIMIT 10
-#define FRONT_WALL_SENSOR_RATIO 5
+#define FRONT_WALL_SENSOR_RATIO 10
 
 /*
  * DIRECTIONS
@@ -135,6 +136,7 @@ typedef int Cell_label;
 #define MODE_READ_FLASH 8
 #define MODE_WRITE_FLASH 9
 #define MODE_EXPLORE_WITHOUT_SAVE_MAZE 10
+#define MODE_TEST_FRONTWALL_CORRECTION 11
 
 /*
  * WRITE DATA ONTO FLASH

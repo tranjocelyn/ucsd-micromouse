@@ -217,6 +217,7 @@ void Controller_run(int left_distance, int right_distance, int left_speed, int r
 
 		// Ignore wall error
 		// TODO: Implement follow wall
+		wall_err = 0;
 
 		// Left motor error to PID
 		pid_err = left_speed - global_left_speed + wall_err;
@@ -245,45 +246,6 @@ void Controller_run(int left_distance, int right_distance, int left_speed, int r
 
 void Controller_frontwall_corection(){
 
-	int current_time = Millis;
-	int front_left, front_right;
-
-	// Reset PID
-	pid_reset();
-	while((Millis - current_time) < 500){
-
-		/* CHECK IF USER SEND A SIGNAL TO TERMINATE CURRENT FUCTION */
-		if (FUNC_TERMINATED){
-			setLeftPwm(0);
-			setRightPwm(0);
-			return;
-		}
-
-		readFrontSensor();
-		front_left = (CENTER_TO_FRONT_LEFT - FLSensor)/FRONT_WALL_SENSOR_RATIO;
-		front_right = (CENTER_TO_FRONT_RIGHT - FRSensor)/FRONT_WALL_SENSOR_RATIO;
-
-		if (front_left > FRONT_WALL_CORRECTION_SPEED_LIMIT)
-			front_left = FRONT_WALL_CORRECTION_SPEED_LIMIT;
-		if (front_left < -FRONT_WALL_CORRECTION_SPEED_LIMIT)
-			front_left = -FRONT_WALL_CORRECTION_SPEED_LIMIT;
-		if (front_right > FRONT_WALL_CORRECTION_SPEED_LIMIT)
-			front_right = FRONT_WALL_CORRECTION_SPEED_LIMIT;
-		if (front_right < -FRONT_WALL_CORRECTION_SPEED_LIMIT)
-			front_right = -FRONT_WALL_CORRECTION_SPEED_LIMIT;
-
-		// Left motor error to PID
-		front_left = sensor_pid_left_motor(front_left - global_left_speed);
-		// Right motor error to PID
-		front_right = sensor_pid_right_motor(front_right - global_right_speed);
-
-		// Set pwm
-		setLeftPwm(front_left);
-		setRightPwm(front_right);
-
-	}
-	// Stay still
-	Controller_run(0,0,0,0);
 }
 
 

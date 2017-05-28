@@ -21,6 +21,8 @@
 
 volatile int32_t leftspeed;
 volatile int32_t rightspeed;
+volatile int32_t leftdst;
+volatile int32_t rightdst;
 
 volatile int test = 0;
 
@@ -34,7 +36,7 @@ int main(void) {
 
 
 	// 3. START PROGRAM - choose mode -------------------------------------------------
-	mode = MODE_DEFAULT;//MODE_EXPLORE;
+	mode = MODE_TEST_SHARP_TURN;//MODE_EXPLORE;
 	while (1){
 
 
@@ -93,6 +95,30 @@ int main(void) {
 	/*
 	 * Test encoder count by going straight-------------------
 	 */
+	while (mode == MODE_TEST_FRONTWALL_CORRECTION){
+		/*
+		 * BEFORE START ANY FUNCTION REMEMBER TO RESET FUNC_TERMINATED SIGNAL
+		 */
+		FUNC_TERMINATED = 0;
+
+		Controller_frontwall_corection();
+
+		delay_ms (9000);
+
+		/*
+		 * HANDLE THE CASE FUNCTION IS TERMINATED BEFORE FINISH
+		 */
+		if (FUNC_TERMINATED){
+			mode = MODE_DEFAULT;
+		}
+
+	}
+	/* ===============================================================	*/
+
+	/* ===============================================================	*/
+	/*
+	 * Test encoder count by going straight-------------------
+	 */
 	while (mode == MODE_TEST_GO_STRAIGHT){
 		/*
 		 * BEFORE START ANY FUNCTION REMEMBER TO RESET FUNC_TERMINATED SIGNAL
@@ -101,12 +127,18 @@ int main(void) {
 		/*
 		 * Go straight for 3 cell
 		 */
-//		Driver_go_straight(5*CELL_WIDTH, EXPLORE_RUNNING_SPEED);
-//		Driver_go_straight(0,0);
-		Runner_random_turn_two();
-		delay_ms (200);
+		Driver_go_straight(5*CELL_WIDTH,30);
+		Driver_go_straight(0,0);
 
-		mode = MODE_DEFAULT;
+		delay_ms (9000);
+
+		/*
+		 * HANDLE THE CASE FUNCTION IS TERMINATED BEFORE FINISH
+		 */
+		if (FUNC_TERMINATED){
+			mode = MODE_DEFAULT;
+		}
+
 	}
 	/* ===============================================================	*/
 
@@ -120,12 +152,8 @@ int main(void) {
 		/*
 		 * BEFORE START ANY FUNCTION REMEMBER TO RESET FUNC_TERMINATED SIGNAL
 		 */
-		FUNC_TERMINATED = 0;
 
-		Runner_random_turn();
-
-		/*
-		 * Turn right 4 times. then turn left 4 times
+		 /* Turn right 4 times. then turn left 4 times */
 
 		Driver_turn_right(0,EXPLORE_RIGHT_TURN_ANGLE,EXPLORE_TURNING_SPEED);
 		Driver_go_straight(0,0);
@@ -154,7 +182,7 @@ int main(void) {
 		delay_ms(500);
 
 		delay_ms (10000);
-		*/
+
 
 
 	}

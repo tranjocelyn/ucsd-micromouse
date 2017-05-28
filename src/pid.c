@@ -14,20 +14,20 @@
  * int RKI= 17;
  * int RKD= 28;
  */
-#define LKP 1100
-#define LKI 17
-#define LKD 28
-#define RKP 1100
-#define RKI 17
-#define RKD 28
+#define LKP 1
+#define LKI 0
+#define LKD 0
+#define RKP 1
+#define RKI 0
+#define RKD 0
 
 
-#define SS_LKP 15000
-#define SS_LKI 160
-#define SS_LKD 80
-#define SS_RKP 15000
-#define SS_RKI 160
-#define SS_RKD 80
+#define SS_LKP 28000
+#define SS_LKI 100
+#define SS_LKD 8000
+#define SS_RKP 28000
+#define SS_RKI 100
+#define SS_RKD 8000
 
 
 volatile int left_old_err, left_intergral;

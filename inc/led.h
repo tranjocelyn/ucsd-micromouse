@@ -12,16 +12,16 @@
  * Pins configuration for Basic mouse:
  * 	Left Diagonal(LD) TX --> Pin PC3
  * 	Low Front (FL) TX --> Pin PC1
- *  High Front (FH) TX --> Pin PC2
- *  Right Diagonal (RD) TX --> Pin PC0
+ *  High Front (FH) TX --> Pin PC0
+ *  Right Diagonal (RD) TX --> Pin PC2
  */
 
 /*
  * Pins configuration for Basic mouse:
  * 	Left Diagonal(LD) TX --> Pin PC3
  * 	Low Front (FL) TX --> Pin PC1
- *  High Front (FH) TX --> Pin PC2
- *  Right Diagonal (RD) TX --> Pin PC0
+ *  High Front (FH) TX --> Pin PC0
+ *  Right Diagonal (RD) TX --> Pin PC2
  */
 
 #define LED1_OFF    GPIO_SetBits(GPIOB, GPIO_Pin_12)

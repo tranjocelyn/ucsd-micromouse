@@ -28,13 +28,13 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Micromouse.elf
+all: ucsd-micromouse.elf
 
 # Tool invocations
-Micromouse.elf: $(OBJS) $(USER_OBJS) /Users/nguyenbui/Documents/workspace/Micromouse/LinkerScript.ld
+ucsd-micromouse.elf: $(OBJS) $(USER_OBJS) /Users/nguyenbui/Documents/workspace/ucsd-micromouse/LinkerScript.ld
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU GCC Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"/Users/nguyenbui/Documents/workspace/Micromouse/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o "Micromouse.elf" @"objects.list" $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -T"/Users/nguyenbui/Documents/workspace/ucsd-micromouse/LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o "ucsd-micromouse.elf" @"objects.list" $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
@@ -46,8 +46,8 @@ clean:
 
 post-build:
 	-@echo 'Generating binary and Printing size information:'
-	arm-none-eabi-objcopy -O binary "Micromouse.elf" "Micromouse.bin"
-	arm-none-eabi-size "Micromouse.elf"
+	arm-none-eabi-objcopy -O binary "ucsd-micromouse.elf" "ucsd-micromouse.bin"
+	arm-none-eabi-size "ucsd-micromouse.elf"
 	-@echo ' '
 
 .PHONY: all clean dependents
